@@ -14,15 +14,13 @@ ul {
 }
 
 tr {
-	padding-top: 10px;
-	padding-bottom: 10px;
 	height: 60px;
-	width: 100px;
+	width: 200px;
 }
 
-td {
-	padding: 0;
-	width: 100px;
+td:first-child {
+	padding: 10px !important;
+	align-items: center !important;
 }
 
 li {
