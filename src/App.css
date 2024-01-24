@@ -1,19 +1,30 @@
 .content {
-    width: 500px;
+	width: 500px;
 }
 
 .content th,
 .content td {
-    text-align: center;
+	text-align: center;
 }
 
 ul {
-    list-style: none;
-    padding: 0px;
+	list-style: none;
+	padding: 0px;
+	width: 200px;
 }
 
 tr {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    height: 60px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	height: 60px;
+	width: 100px;
+}
+
+td {
+	padding: 0;
+	width: 100px;
+}
+
+li {
+	width: 100%;
 }
