@@ -3,7 +3,7 @@ import './App.css'
 import GuestForm from './components/GuestForm'
 import MealSchedule from './components/MealSchedule'
 import { Guest } from './interfaces/Guest'
-import { fetchData } from './api/fetchData'
+import { fetchData } from './api/fetchData
 
 function App() {
 	const [guests, setGuests] = React.useState<Guest[]>([])
