@@ -1,6 +1,7 @@
 import React from 'react'
 import { Guest } from '../interfaces/Guest'
 import { GuestFormProps } from '../interfaces/Guest-form-props'
+import { postData } from '../api/fetchData'
 
 const GuestForm: React.FC<GuestFormProps> = ({ guests, setGuests }) => {
 	const [formData, setFormData] = React.useState<Guest>({
