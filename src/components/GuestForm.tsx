@@ -5,6 +5,7 @@ import { postData } from '../api/fetchData'
 
 const GuestForm: React.FC<GuestFormProps> = ({ guests, setGuests }) => {
 	const [formData, setFormData] = React.useState<Guest>({
+		id: '',
 		name: '',
 		startDate: '',
 		endDate: '',
@@ -19,15 +20,30 @@ const GuestForm: React.FC<GuestFormProps> = ({ guests, setGuests }) => {
 		}))
 	}
 
+	const isStartDateBeforeEndDate = () => {
+		const { startDate, endDate } = formData
+		return new Date(startDate) <= new Date(endDate)
+	}
+
 	//Submit gombra kattintás kezelése - küldés
-	const handleAddGuest = () => {
-		setGuests((prevGuests: Guest[]) => [...prevGuests, formData])
+	const handleAddGuest = async () => {
+		if (!isStartDateBeforeEndDate()) {
+			alert('Start date must be before end date!')
+			return
+		}
 
-		const updatedGuests = [...guests, formData]
-
-		localStorage.setItem('guests', JSON.stringify(updatedGuests))
+		try {
+			// Post Küldés
+			const response = await postData(formData)
+			const data = await response.json()
+			console.log(data)
+		} catch (error) {
+			console.log('Küldés során hiba:', error)
+			throw error
+		}
 
 		setFormData({
+			id: '',
 			name: '',
 			startDate: '',
 			endDate: '',
@@ -36,7 +52,9 @@ const GuestForm: React.FC<GuestFormProps> = ({ guests, setGuests }) => {
 
 	return (
 		<div className='layout-column'>
-			<form className='contact-form'>
+			<form
+				onSubmit={handleAddGuest}
+				className='contact-form'>
 				<div className='layout-row align-items-center justify-content-center mt-50'>
 					<input
 						type='text'
@@ -66,8 +84,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ guests, setGuests }) => {
 				<div className='layout-row align-items-center justify-content-center mt-50'>
 					<button
 						data-test-id='submit-button'
-						className='w-30'
-						onClick={handleAddGuest}>
+						className='w-30'>
 						Add to Menu
 					</button>
 				</div>
