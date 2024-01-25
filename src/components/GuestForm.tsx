@@ -1,9 +1,10 @@
 import React from 'react'
 import { Guest } from '../interfaces/Guest'
-import { GuestFormProps } from '../interfaces/Guest-form-props'
 import { postData } from '../api/fetchData'
+import { sweetAlert } from './SweetAlert'
+import { GuestFormProps } from '../interfaces/Guest-form-props'
 
-const GuestForm: React.FC<GuestFormProps> = ({ guests, setGuests }) => {
+const GuestForm: React.FC<GuestFormProps> = ({ setGuests }) => {
 	const [formData, setFormData] = React.useState<Guest>({
 		id: '',
 		name: '',
@@ -26,22 +27,31 @@ const GuestForm: React.FC<GuestFormProps> = ({ guests, setGuests }) => {
 	}
 
 	//Submit gombra kattintás kezelése - küldés
-	const handleAddGuest = async () => {
+	const handleAddGuest = async (e: any) => {
+		e.preventDefault()
+
 		if (!isStartDateBeforeEndDate()) {
-			alert('Start date must be before end date!')
-			return
+			sweetAlert(
+				'Input error',
+				'Start date must be before End date!',
+				'error',
+			)
+		} else {
+			try {
+				// Post Küldés
+				const response = await postData(formData)
+				console.log('Küldés eredménye:', response)
+				sweetAlert(
+					'Posted successfully',
+					'Guest added successfully!',
+					'success',
+				)
+				setGuests((prevGuests: Guest[]) => [...prevGuests, formData])
+			} catch (error) {
+				console.log('Küldés során hiba:', error)
+				sweetAlert('Post error', error, 'error')
+			}
 		}
-
-		try {
-			// Post Küldés
-			const response = await postData(formData)
-			const data = await response.json()
-			console.log(data)
-		} catch (error) {
-			console.log('Küldés során hiba:', error)
-			throw error
-		}
-
 		setFormData({
 			id: '',
 			name: '',
@@ -54,6 +64,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ guests, setGuests }) => {
 		<div className='layout-column'>
 			<form
 				onSubmit={handleAddGuest}
+				method='POST'
 				className='contact-form'>
 				<div className='layout-row align-items-center justify-content-center mt-50'>
 					<input
@@ -62,6 +73,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ guests, setGuests }) => {
 						name='name'
 						required
 						placeholder='Guest Name'
+						value={formData.name}
 						onChange={handleInputChange}
 					/>
 					<input
@@ -70,6 +82,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ guests, setGuests }) => {
 						name='startDate'
 						required
 						placeholder='Start Date'
+						value={formData.startDate}
 						onChange={handleInputChange}
 					/>
 					<input
@@ -78,6 +91,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ guests, setGuests }) => {
 						name='endDate'
 						required
 						placeholder='End Date'
+						value={formData.endDate}
 						onChange={handleInputChange}
 					/>
 				</div>

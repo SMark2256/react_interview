@@ -8,6 +8,7 @@
 }
 
 ul {
+	user-select: none;
 	list-style: none;
 	padding: 0px;
 	width: 200px;
@@ -35,25 +36,38 @@ li {
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%, 0);
+	font-size: 70px;
 }
 
-.loading p {
-	padding-top: 10%;
-	font-size: 80px;
-	animation: loading-anim 1s infinite;
+.loading section {
+	position: relative;
+}
+
+.loading section span {
+	user-select: none;
+	position: absolute;
+	top: 70%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.loading-animation {
+	user-select: none;
+	font-size: 200px;
+	animation: loading-anim 1s linear infinite;
+	padding: 10%;
 }
 
 @keyframes loading-anim {
-	0% {
-		opacity: 0.3;
-		transform: scale(0.8);
+	from {
+		opacity: 1;
+		transform: rotate(0deg);
 	}
 	50% {
-		opacity: 1;
-		transform: scale(1);
+		opacity: 0.5;
 	}
-	100% {
-		opacity: 0.3;
-		transform: scale(0.8);
+	to {
+		opacity: 1;
+		transform: rotate(360deg);
 	}
 }
