@@ -14,10 +14,9 @@ const MealSchedule: React.FC<MealScheduleProps> = ({ guests }) => {
 
 		while (currentDate <= endDateTime) {
 			const formattedDate = currentDate.toISOString().split('T')[0]
-			dates.push({ date: formattedDate, names: [] })
+			dates.push({ date: formattedDate, names: [], food: false })
 			currentDate.setDate(currentDate.getDate() + 1)
 		}
-
 		return dates
 	}
 
@@ -30,8 +29,13 @@ const MealSchedule: React.FC<MealScheduleProps> = ({ guests }) => {
 			)
 			if (existingDate) {
 				existingDate.names.push(guest.name)
+				existingDate.food = guest.food || existingDate.food
 			} else {
-				acc.push({ ...dateObj, names: [guest.name] })
+				acc.push({
+					...dateObj,
+					names: [guest.name],
+					food: guest.food || false,
+				})
 			}
 		})
 
@@ -61,7 +65,9 @@ const MealSchedule: React.FC<MealScheduleProps> = ({ guests }) => {
 					</thead>
 					<tbody data-test-id='meal-schedule'>
 						{uniqueDates.map((guest, index) => (
-							<tr key={index}>
+							<tr
+								className={`${guest.food && 'food-tolerance'}`}
+								key={index}>
 								<td data-test-id='date'>{guest.date}</td>
 								{['breakfast', 'lunch', 'dinner'].map(
 									(meal, mealIndex) => (

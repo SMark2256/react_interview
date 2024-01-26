@@ -10,6 +10,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ setGuests }) => {
 		name: '',
 		startDate: '',
 		endDate: '',
+		food: false,
 	})
 
 	//Input mezők változásának kezelése
@@ -57,6 +58,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ setGuests }) => {
 			name: '',
 			startDate: '',
 			endDate: '',
+			food: false,
 		})
 	}
 
@@ -94,6 +96,17 @@ const GuestForm: React.FC<GuestFormProps> = ({ setGuests }) => {
 						value={formData.endDate}
 						onChange={handleInputChange}
 					/>
+					<div>
+						<label htmlFor='food'>Food tolerance</label>
+						<input
+							type='checkbox'
+							data-test-id='food'
+							name='food'
+							required
+							placeholder='Food tolerance'
+							onChange={handleInputChange}
+						/>
+					</div>
 				</div>
 				<div className='layout-row align-items-center justify-content-center mt-50'>
 					<button

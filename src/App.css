@@ -71,3 +71,7 @@ li {
 		transform: rotate(360deg);
 	}
 }
+
+.food-tolerance {
+	background-color: lightcoral;
+}
