@@ -8,6 +8,7 @@
 }
 
 ul {
+	user-select: none;
 	list-style: none;
 	padding: 0px;
 	width: 200px;
@@ -25,4 +26,52 @@ td:first-child {
 
 li {
 	width: 100%;
+}
+
+.loading {
+	background-color: white;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	font-size: 70px;
+}
+
+.loading section {
+	position: relative;
+}
+
+.loading section span {
+	user-select: none;
+	position: absolute;
+	top: 70%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.loading-animation {
+	user-select: none;
+	font-size: 200px;
+	animation: loading-anim 1s linear infinite;
+	padding: 10%;
+}
+
+@keyframes loading-anim {
+	from {
+		opacity: 1;
+		transform: rotate(0deg);
+	}
+	50% {
+		opacity: 0.5;
+	}
+	to {
+		opacity: 1;
+		transform: rotate(360deg);
+	}
+}
+
+.food-tolerance {
+	background-color: lightcoral;
 }

@@ -1,5 +1,7 @@
 export interface Guest {
-    name: string;
-    startDate: string;
-    endDate: string;
+	id: string
+	name: string
+	startDate: string
+	endDate: string
+	food: boolean
 }
